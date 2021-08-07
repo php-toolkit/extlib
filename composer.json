@@ -1,0 +1,33 @@
+{
+  "name": "toolkit/extlib",
+  "type": "library",
+  "description": "some useful http client library of the php",
+  "keywords": [
+    "library",
+    "tool",
+    "http",
+    "curl"
+  ],
+  "homepage": "https://github.com/php-toolkit/extlib",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "inhere",
+      "email": "in.798@qq.com",
+      "homepage": "https://github.com/inhere"
+    }
+  ],
+  "require": {
+    "php": ">7.1.0",
+    "toolkit/cli-utils": "^1.0",
+    "toolkit/stdlib": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Toolkit\\Extlib\\": "src/"
+    }
+  },
+  "suggest": {
+    "php-comp/http-message": "Very lightweight PSR-7 implements http message component"
+  }
+}
