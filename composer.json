@@ -1,7 +1,7 @@
 {
   "name": "toolkit/extlib",
   "type": "library",
-  "description": "some useful http client library of the php",
+  "description": "Some useful extends library for php",
   "keywords": [
     "library",
     "tool",
