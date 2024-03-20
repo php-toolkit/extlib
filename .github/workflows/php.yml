@@ -1,21 +1,17 @@
-name: Unit-tests
+name: Unit-Tests
 
 on: [push]
 
 jobs:
   test:
-    name: Test on php ${{ matrix.php}} and ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
+    name: Test on php ${{ matrix.php }}
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     strategy:
       fail-fast: true
       matrix:
-        php: [7.3, 7.4, 8.0] #
-        os: [ubuntu-latest, macOS-latest] # windows-latest,
-        include:
-          - os: 'ubuntu-latest'
-            php: '7.2'
-            phpunit: '8.5.13'
+        php: [8.1, 8.2, 8.3]
+#        os: [ubuntu-latest, macOS-latest] # windows-latest,
 
     steps:
       - name: Checkout
@@ -27,8 +23,8 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php}}
-          tools: pecl, php-cs-fixer, phpunit:${{ matrix.phpunit }}
-          extensions: mbstring, dom, fileinfo, mysql, openssl, igbinary, redis # , swoole-4.4.19 #optional, setup extensions
+          tools: pecl, php-cs-fixer, phpunit # , phpunit-7.5
+          extensions: mbstring, dom, fileinfo, openssl, igbinary # , swoole-4.4.19 #optional, setup extensions
           ini-values: post_max_size=56M, short_open_tag=On #optional, setup php.ini configuration
           coverage: none #optional, setup coverage driver: xdebug, none
 
@@ -36,7 +32,8 @@ jobs:
         run: env
 
       - name: Install dependencies
-        run: composer install --no-progress --no-suggest
+        run: |
+          composer install --no-progress --no-suggest
 
       # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
       # Docs: https://getcomposer.org/doc/articles/scripts.md

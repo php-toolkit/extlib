@@ -1,18 +1,12 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: inhere
- * Date: 2017-12-21
- * Time: 9:51
- */
+<?php declare(strict_types=1);
 
 namespace Inhere\Extra\Components;
 
+use Toolkit\Stdlib\Math;
 use Toolkit\Stdlib\OS;
 
 /**
  * Class ExecComparator - PHP code exec speed comparator
- * @package Inhere\Extra\Components
  */
 class ExecComparator
 {
@@ -24,21 +18,21 @@ class ExecComparator
     /**
      * @var array
      */
-    private $vars = [];
+    private array $vars = [];
 
     /**
      * @var array
      */
-    private $results = [];
+    private array $results = [];
 
     /** @var string[] */
-    private $sample1 = [
+    private array $sample1 = [
         'code' => '',
         'title' => '',
     ];
 
     /** @var string[] */
-    private $sample2 = [
+    private array $sample2 = [
         'code' => '',
         'title' => '',
     ];
@@ -47,7 +41,7 @@ class ExecComparator
     private $common;
 
     /** @var int */
-    private $loops = 100000;
+    private int $loops = 100000;
 
     /** @var string */
     private $time;
@@ -123,7 +117,7 @@ class ExecComparator
             $this->setLoops($loops);
         }
 
-        $sTime = microtime(1);
+        $sTime = microtime(true);
         $this->time = date('ymdH');
 
         $id = 1;
@@ -133,7 +127,7 @@ class ExecComparator
         $id = 2;
         $file2 = $this->dump($this->sample2['code'], $id);
         $this->results['sample2'] = $this->runSampleFile($file2, $id);
-        $eTime = microtime(1);
+        $eTime = microtime(true);
 
         $this->results['total'] = [
             'startTime' => $sTime,
@@ -241,7 +235,7 @@ TXT;
 
         $func = 'sample_func_' . $id;
         $sMem = memory_get_usage();
-        $sTime = microtime(1);
+        $sTime = microtime(true);
 
         // running
         // ob_start();
@@ -249,7 +243,7 @@ TXT;
         // $out = ob_get_clean();
 
         $eMem = memory_get_usage();
-        $eTime = microtime(1);
+        $eTime = microtime(true);
 
         return [
             'startTime' => $sTime,
@@ -270,7 +264,7 @@ TXT;
      */
     public function dump(string $code, int $id): string
     {
-        $file = $this->tmpDir . '/' . $this->time . '_' . md5($code . random_int(1000, 100000)) . '.php';
+        $file = $this->tmpDir . '/' . $this->time . '_' . md5($code . Math::random(1000, 100000)) . '.php';
         $common = $this->common;
 
         $content = <<<CODE
@@ -286,7 +280,6 @@ $common
 CODE;
 
         file_put_contents($file, '<?php' . PHP_EOL . $content);
-
         return $file;
     }
 
