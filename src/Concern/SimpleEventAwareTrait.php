@@ -24,7 +24,7 @@ trait SimpleEventAwareTrait
      *
      * @var array
      */
-    protected static $supportedEvents = [];
+    protected static array $supportedEvents = [];
 
     /**
      * registered Events
@@ -34,7 +34,7 @@ trait SimpleEventAwareTrait
      *  'event' => bool, // is once event
      * ]
      */
-    private static $events = [];
+    private static array $events = [];
 
     /**
      * events and handlers
@@ -44,7 +44,7 @@ trait SimpleEventAwareTrait
      *  'event' => callable, // event handler
      * ]
      */
-    private static $eventHandlers = [];
+    private static array $eventHandlers = [];
 
     /**
      * register a event handler
